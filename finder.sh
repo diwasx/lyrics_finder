@@ -9,8 +9,8 @@ title=`ps aux | grep "[m]pv --title"| sed 's/.*title \(.*\)--no.*/\1/'`
 
 #Extract artist and song title
 #Artist name
-#first sed removes song name (after '-'), send sed removes all after '(' ,third sed removes word all after 'ft', forth removes all after  '['
-artist=`echo $title | sed 's/-.*//; s/(.*//; s/ft.*//; s/\[.*//'`
+#first sed removes song name (after '-'), send sed removes all after '(' ,third sed removes word all after 'ft', forth remove all after ',' and fifth removes all after  '['
+artist=`echo $title | sed 's/-.*//; s/(.*//; s/ft.*//; s/,.*//; s/\[.*//'`
 echo "$artist"
 
 #Song title
