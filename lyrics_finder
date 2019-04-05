@@ -1,0 +1,80 @@
+#!/usr/bin/python3
+
+#This program can only find lyric if the song played has title like "ILLENIUM - Crashing (Lyric Video) ft. Bahari" or "Numb (Official Video) - Linkin Park"
+#This program searches lyrics from https://azlyrics.com
+import re
+import os
+import sys
+import subprocess
+import urllib.request
+from bs4 import BeautifulSoup
+
+def get_lyrics(a,b):
+    artist = a
+    artist = artist.lower()
+
+    song_title = b
+    song_title = song_title.lower()
+
+    # remove all except alphanumeric characters from artist and song_title
+    artist = re.sub('[^A-Za-z0-9]+', "", artist)
+    song_title = re.sub('[^A-Za-z0-9]+', "", song_title)
+    if artist.startswith("the"):    # remove starting 'the' from artist e.g. the who -> who
+        artist = artist[3:]
+    
+    try:
+        #artist name as first and song name as second arg
+        try:
+            url = "http://azlyrics.com/lyrics/"+artist+"/"+song_title+".html"
+            content = urllib.request.urlopen(url).read()
+            soup = BeautifulSoup(content, 'html.parser')
+            lyrics = str(soup)
+            # lyrics lies between up_partition and down_partition
+            up_partition = '<!-- Usage of azlyrics.com content by any third-party lyrics provider is prohibited by our licensing agreement. Sorry about that. -->'
+            down_partition = '<!-- MxM banner -->'
+            lyrics = lyrics.split(up_partition)[1]
+            lyrics = lyrics.split(down_partition)[0]
+            lyrics = lyrics.replace('<br/>','').replace('</br>','').replace('<i>','').replace('</i>','').replace('</div>','').strip()
+            return lyrics
+        except:
+            #song name as first and artist name as second arg
+            url = "http://azlyrics.com/lyrics/"+song_title+"/"+artist+".html"
+            content = urllib.request.urlopen(url).read()
+            soup = BeautifulSoup(content, 'html.parser')
+            lyrics = str(soup)
+            # lyrics lies between up_partition and down_partition
+            up_partition = '<!-- Usage of azlyrics.com content by any third-party lyrics provider is prohibited by our licensing agreement. Sorry about that. -->'
+            down_partition = '<!-- MxM banner -->'
+            lyrics = lyrics.split(up_partition)[1]
+            lyrics = lyrics.split(down_partition)[0]
+            lyrics = lyrics.replace('<br/>','').replace('</br>','').replace('<i>','').replace('</i>','').replace('</div>','').strip()
+            return lyrics
+    except Exception as e:
+        print("Sory we could not find your song lyric")
+        print("Check if mpsyt is running any music or there is any network problem")
+        print('You can also try using:- lyric_finder "Linkin Park" "One more light"')
+        return "Exception occurred \n" +str(e)
+
+#Starting point
+#If no argument is pass, it checks for playing mpsyt
+if len(sys.argv)==1:
+    # THIS_FOLDER = os.path.dirname(os.path.abspath(__file__)) #This cause problem for symbolic link of main python executable
+    THIS_FOLDER = os.path.dirname(os.path.realpath(__file__))
+    my_file = os.path.join(THIS_FOLDER, 'finder.sh')
+
+    #Run 'finder.sh' to get artist and song name of playing song
+    result=subprocess.run((my_file),stdout=subprocess.PIPE)
+    result=result.stdout.decode('utf-8')
+    artist=result.split('\n', 1)[0]
+    songs=result.split('\n', 1)[1]
+    print ("Searching lyric for:\n"+artist+" - "+songs)
+    print(get_lyrics(artist,songs))
+
+#If artist name and song title is passed
+elif len(sys.argv) == 3:
+    print(get_lyrics(sys.argv[1],sys.argv[2]))
+
+#If wrong arguments type passed
+else:
+    print ("Error: Artist name and Song name required")
+    print ('Example: lyricsArgv "Post Malone" "Sunflower"')

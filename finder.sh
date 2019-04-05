@@ -1,0 +1,19 @@
+#!/bin/sh
+#Get artist and songs title running in mpsyt
+
+#This print out whole song title like 'Billie Eilish - lovely (with Khalid)'
+title=`ps aux | grep "[m]pv --title"| sed 's/.*title \(.*\)--no.*/\1/'`
+# [m] for searching regix, because ps display echo process itself
+# \1 is a 'Remember pattern' that remembers everything that is within \(.*\) 
+# .*xyz --> represent starting of string
+
+#Extract artist and song title
+#Artist name
+#first sed removes song name (after '-'), send sed removes all after '(' ,third sed removes word all after 'ft', forth removes all after  '['
+artist=`echo $title | sed 's/-.*//; s/(.*//; s/ft.*//; s/\[.*//'`
+echo "$artist"
+
+#Song title
+#first sed removes artist name (before '-'), send sed removes all after '(' ,third sed removes all after word 'ft', forth removes after '[' and fifth sed removes first white space 
+song=`echo $title | sed 's/.*-//; s/(.*//; s/ft.*//; s/\[.*//; s/ //'`
+echo "$song"
