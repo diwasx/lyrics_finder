@@ -10,7 +10,7 @@ lyrics_finder is compatible with Linux
 ```
 git clone https://github.com/diwasx/lyrics_finder
 cd lyrics_finder
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt --user
 ```
 Download [mps-youtube](https://github.com/mps-youtube/mps-youtube)
 Commandline youtube music player that works with lyrics_finder
@@ -18,6 +18,10 @@ Commandline youtube music player that works with lyrics_finder
 git clone https://github.com/mps-youtube/mps-youtube.git
 cd mps-youtube
 pip3 install --user . 
+```
+You'll also need youtube-dl to run mpsyt
+```
+pip3 install --user youtube-dl
 ```
 Run
 ```
@@ -43,6 +47,6 @@ Works for songs that is playing in mpsyt (mps-youtube)
 If 'finder' can find your song title and artist then
 run
 ```
-./lyrics_finder.sh
+./lyrics_finder
 ```
 <img src="https://diwasx.github.io/img_backup/lyrics_finder/lyrics_finder.svg">
