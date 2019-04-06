@@ -2,8 +2,10 @@
 #Get artist and songs title running in mpsyt
 
 #This print out whole song title like 'Billie Eilish - lovely (with Khalid)'
-title=`ps aux | grep "[m]player -title"| sed 's/.*title \(.*\)-no.*/\1/'`
-if [ title=='' ];then
+title=`ps aux | grep "[m]player -title"| sed 's/.*title \(.*\)-volume.*/\1/'`
+
+#If mplayer is not playing check for mpv
+if [ -z "$title" ];then
     title=`ps aux | grep "[m]pv --title"| sed 's/.*title \(.*\)--no.*/\1/'`
 fi
 
