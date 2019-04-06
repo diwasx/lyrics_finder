@@ -17,9 +17,8 @@ pip3 install -r requirements.txt --user
 ./lyrics_finder "artist" "song_title"
 ```
 <img src="https://diwasx.github.io/img_backup/lyrics_finder/basic.svg">
----
----
 
+***
 Download [mps-youtube](https://github.com/mps-youtube/mps-youtube)
 Commandline youtube music player that works with lyrics_finder
 ```
@@ -36,7 +35,9 @@ pip3 install --user youtube-dl
 If mplayer is not installed, check your linux distribution method for installing mplayer
 ***
 
-Play youtube song with mpsyt(mps-youtube)
+Play youtube song with mpsyt (mps-youtube)
+
+**Running mpsyt**
 
 Example
 ```
@@ -45,6 +46,13 @@ mpsyt /cranberries
 <img src="https://diwasx.github.io/img_backup/lyrics_finder/mpsyt.svg">
 
 Check [mps-youtube](https://github.com/mps-youtube/mps-youtube) for more information
+
+If you have problem playing in mpsyt try using [mpv](https://mpv.io/installation/)
+
+Type this in mpsyt 
+```
+set player mpv
+```
 
 ***
 **Find song playing in mpsyt**

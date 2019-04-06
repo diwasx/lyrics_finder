@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 #This program can only find lyric if the song played has title like "ILLENIUM - Crashing (Lyric Video) ft. Bahari" or "Numb (Official Video) - Linkin Park"
 #This program searches lyrics from https://azlyrics.com
@@ -77,4 +77,4 @@ elif len(sys.argv) == 3:
 #If wrong arguments type passed
 else:
     print ("Error: Artist name and Song name required")
-    print ('Example: lyricsArgv "Post Malone" "Sunflower"')
+    print ('Example: ./lyrics_finder "Post Malone" "Sunflower"')
