@@ -16,7 +16,7 @@ fi
 #Extract artist and song title
 #Artist name
 #first sed removes song name (after '-'), send sed removes all after '(' ,third sed removes word all after 'ft', forth remove all after ',' and fifth removes all after  '['
-artist=`echo $title | sed 's/-.*//; s/(.*//; s/ft.*//; s/feat.*//; s/,.*//; s/\[.*//'`
+artist=`echo $title | sed 's/-.*//; s/(.*//; s/ft.*//; s/feat.*//; s/&.*//; s/,.*//; s/\[.*//'`
 echo "$artist"
 
 #Song title
